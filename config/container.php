@@ -23,13 +23,13 @@ return [
     },
 
     // prestige
-    // BasePathMiddleware::class => function (ContainerInterface $container) {
-    //     return new BasePathMiddleware($container->get(App::class));
-    // },
+    BasePathMiddleware::class => function (ContainerInterface $container) {
+        return new BasePathMiddleware($container->get(App::class));
+    },
 
     ErrorMiddleware::class => function (ContainerInterface $container) {
         $app = $container->get(App::class);
-        $settings = $container->get('settings')['error_handler_middleware'];
+        $settings = $container->get('settings')['error'];
 
         return new ErrorMiddleware(
             $app->getCallableResolver(),
@@ -40,37 +40,38 @@ return [
         );
     },
 
-    ConnectionProxy::class => function (ContainerInterface $container) {
-        return new ConnectionProxy(
-            $container->get('customers_api'),
-        );
-    },
+    // // APIS
+    // ConnectionProxy::class => function (ContainerInterface $container) {
+    //     return new ConnectionProxy(
+    //         $container->get('customers_api'),
+    //     );
+    // },
 
-    // APIS
-    'customers_api' => function (ContainerInterface $container) {
-        $settings = $container->get('settings')['customers_api'];
+    // // APIS
+    // 'customers_api' => function (ContainerInterface $container) {
+    //     $settings = $container->get('settings')['customers_api'];
 
-        $host = $settings['host'];
-        $dbname = $settings['database'];
-        $username = $settings['username'];
-        $password = $settings['password'];
-        $charset = $settings['charset'];
-        $flags = $settings['flags'];
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
+    //     $host = $settings['host'];
+    //     $dbname = $settings['database'];
+    //     $username = $settings['username'];
+    //     $password = $settings['password'];
+    //     $charset = $settings['charset'];
+    //     $flags = $settings['flags'];
+    //     $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
 
-        return new PDO($dsn, $username, $password, $flags);
-    },
+    //     return new PDO($dsn, $username, $password, $flags);
+    // },
 
     // Prestige
-    // // Database connection
-    // Connection::class => function (ContainerInterface $container) {
-    //     $config = new DoctrineConfiguration();
-    //     $connectionParams = $container->get('settings')['db'];
+    // Database connection
+    Connection::class => function (ContainerInterface $container) {
+        $config = new DoctrineConfiguration();
+        $connectionParams = $container->get('settings')['db'];
 
-    //     return DriverManager::getConnection($connectionParams, $config);
-    // },
+        return DriverManager::getConnection($connectionParams, $config);
+    },
 
-    // PDO::class => function (ContainerInterface $container) {
-    //     return $container->get(Connection::class)->getWrappedConnection();
-    // },
+    PDO::class => function (ContainerInterface $container) {
+        return $container->get(Connection::class)->getWrappedConnection();
+    },
 ];
