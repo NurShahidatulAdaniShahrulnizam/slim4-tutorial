@@ -8,11 +8,13 @@ use Slim\Routing\RouteCollectorProxy;
 return function (App $app) {
     $app->get('/', \App\Action\HomeAction::class);
 
+    $app->get('/customers-data', \App\Action\HomeAction::class);
+
     $app->group(
         '/customers-data',
         function (RouteCollectorProxy $group) {
 
-            $group->post('/', \App\Action\Customer\SaveCustomer::class);
+            $group->post('/', \App\Action\Customer\AddCustomer::class);
             $group->get('/', \App\Action\Customer\ListCustomer::class);
             $group->options('/', function (ServerRequestInterface $request, ResponseInterface $response) {
                 return $response;

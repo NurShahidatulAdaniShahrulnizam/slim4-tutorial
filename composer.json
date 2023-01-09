@@ -4,7 +4,9 @@
         "nyholm/psr7": "^1.5",
         "nyholm/psr7-server": "^1.0",
         "php-di/php-di": "^6.4",
-        "selective/basepath": "^2.1"
+        "selective/basepath": "^2.1",
+        "doctrine/orm": "^2.14",
+        "symfony/cache": "^5.4"
     },
     "autoload": {
         "psr-4": {

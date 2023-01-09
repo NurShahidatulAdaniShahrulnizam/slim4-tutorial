@@ -35,51 +35,52 @@ $settings['error'] = [
 ];
 
 // APIS
-// Database settings
-$settings['customers_api'] = [
-    'driver' => 'mysql',
-    'host' => '127.0.0.1',
-    'username' => 'root',
-    'database' => 'customers_api',
-    'password' => 'ikramatic123',
-    'charset' => 'utf8mb4',
-    'collation' => 'utf8mb4_unicode_ci',
-    'flags' => [
-        // Turn off persistent connections
-        PDO::ATTR_PERSISTENT => false,
-        // Enable exceptions
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        // Emulate prepared statements
-        PDO::ATTR_EMULATE_PREPARES => true,
-        // Set default fetch mode to array
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        // Set character set
-        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
-    ],
-];
-
-// Prestige
 // // Database settings
-// $settings['db'] = [
-//     'driver' => 'pdo_mysql',
+// $settings['customers_api'] = [
+//     'driver' => 'mysql',
 //     'host' => '127.0.0.1',
-//     'dbname' => 'customers_api',
-//     'user' => 'root',
+//     'username' => 'root',
+//     'database' => 'customers_api',
 //     'password' => 'ikramatic123',
 //     'charset' => 'utf8mb4',
-//     'collation' => 'utf8mb4_general_ci',
-//     'driverOptions' => [
+//     'collation' => 'utf8mb4_unicode_ci',
+//     'flags' => [
 //         // Turn off persistent connections
 //         PDO::ATTR_PERSISTENT => false,
 //         // Enable exceptions
 //         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 //         // Emulate prepared statements
-//         PDO::ATTR_EMULATE_PREPARES => false,
+//         PDO::ATTR_EMULATE_PREPARES => true,
 //         // Set default fetch mode to array
 //         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 //         // Set character set
-//         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci'
+//         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
 //     ],
 // ];
+
+// Prestige
+// Database settings
+$settings['db'] = [
+    'driver' => 'pdo_mysql',
+    'host' => '43.252.212.35',
+    'port' => 3306,
+    'dbname' => 'customers_api',
+    'user' => 'prestige-app',
+    'password' => '#$Prestige_App_135!@',
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_general_ci',
+    'driverOptions' => [
+        // Turn off persistent connections
+        PDO::ATTR_PERSISTENT => false,
+        // Enable exceptions
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        // Emulate prepared statements
+        PDO::ATTR_EMULATE_PREPARES => false,
+        // Set default fetch mode to array
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        // Set character set
+        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci'
+    ],
+];
 
 return $settings;

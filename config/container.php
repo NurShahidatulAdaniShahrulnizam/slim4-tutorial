@@ -1,11 +1,13 @@
 <?php
 
+use Doctrine\DBAL\DriverManager;
 use Psr\Container\ContainerInterface;
+use Selective\BasePath\BasePathMiddleware;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
 use App\Database\ConnectionProxy;
-use Selective\BasePath\BasePathMiddleware;
+use Doctrine\DBAL\Configuration as DoctrineConfiguration;
 
 return [
     'settings' => function () {
