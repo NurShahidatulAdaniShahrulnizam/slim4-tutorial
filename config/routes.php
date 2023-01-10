@@ -21,6 +21,7 @@ return function (App $app) {
             }
             );
 
+            $group->get('/{id}', \App\Action\Customer\ViewCustomer::class);
             $group->put('/{id}', \App\Action\Customer\UpdateCustomer::class);
             $group->delete('/{id}', \App\Action\Customer\DeleteCustomer::class);
             $group->options('/{id}', function (ServerRequestInterface $request, ResponseInterface $response) {

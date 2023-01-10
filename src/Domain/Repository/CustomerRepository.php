@@ -59,8 +59,7 @@ class CustomerRepository
             )
             ->from('customers', 'c');
 
-        // return $rows->fetchAllAssociative();
-        return [];
+        return $rows->fetchAllAssociative();
     }
 
     public function getCustomerById(int $id)

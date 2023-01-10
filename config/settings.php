@@ -62,11 +62,11 @@ $settings['error'] = [
 // Database settings
 $settings['db'] = [
     'driver' => 'pdo_mysql',
-    'host' => '43.252.212.35',
+    'host' => '127.0.0.1',
     'port' => 3306,
     'dbname' => 'customers_api',
-    'user' => 'prestige-app',
-    'password' => '#$Prestige_App_135!@',
+    'user' => 'root',
+    'password' => 'ikramatic123',
     'charset' => 'utf8mb4',
     'collation' => 'utf8mb4_general_ci',
     'driverOptions' => [

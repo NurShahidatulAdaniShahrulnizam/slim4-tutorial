@@ -8,6 +8,7 @@ use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
 use App\Database\ConnectionProxy;
 use Doctrine\DBAL\Configuration as DoctrineConfiguration;
+use Doctrine\DBAL\Connection;
 
 return [
     'settings' => function () {
