@@ -59,10 +59,56 @@ class CustomerRepository
                 'c.name',
                 'c.email',
                 'c.phone',
-                'd.id as departmentId'
+                'c.departmentId',
+                'd.name as departmentName'
             )
             ->from('customers', 'c')
+            ->leftJoin('c', 'departments', 'd', 'c.departmentId = d.id');
+
+        return $rows->fetchAllAssociative();
+    }
+
+    public function getAllCustomersHasDepartment()
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $rows = $query
+            ->select(
+                'c.id',
+                'c.name',
+                'c.email',
+                'c.phone',
+                'c.departmentId',
+                'd.name as departmentName'
+            )
+            // first method
+            ->from('customers', 'c')
             ->join('c', 'departments', 'd', 'c.departmentId = d.id');
+
+            // // second method
+            // ->from('customers', 'c')
+            // ->leftJoin('c', 'departments', 'd', 'c.departmentId = d.id')
+            // ->where('c.departmentId is not null');
+
+        return $rows->fetchAllAssociative();
+    }
+    
+    public function getAllCustomersNullDepartment()
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $rows = $query
+            ->select(
+                'c.id',
+                'c.name',
+                'c.email',
+                'c.phone',
+                'c.departmentId',
+                'd.name as departmentName'
+            )
+            ->from('customers', 'c')
+            ->leftJoin('c', 'departments', 'd', 'c.departmentId = d.id')
+            ->where('c.departmentId is null');
 
         return $rows->fetchAllAssociative();
     }
@@ -77,10 +123,11 @@ class CustomerRepository
                 'c.name',
                 'c.email',
                 'c.phone',
-                'd.id as departmentId'
+                'c.departmentId',
+                'd.name as departmentName'
             )
             ->from('customers', 'c')
-            ->join('c', 'departments', 'd', 'c.departmentId = d.id')
+            ->leftJoin('c', 'departments', 'd', 'c.departmentId = d.id')
             ->where('c.id = :id')
             ->setParameter('id', $id);
 
