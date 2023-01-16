@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Action\Customer;
+namespace App\Action\Department;
 
-use App\Domain\Service\Customer\CustomerCreater;
+use App\Domain\Service\Department\DepartmentCreater;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-final class AddCustomer
+final class AddDepartment
 {
     /**
-     * @var CustomerCreater
+     * @var DepartmentCreater
      */
-    private $customerCreatorService;
+    private $departmentCreatorService;
 
     /**
      * The constructor.
      *
-     * @param CustomerCreater $customerCreatorService The profiling form updater service
+     * @param DepartmentCreater $departmentCreatorService The profiling form updater service
      */
-    public function __construct(CustomerCreater $customerCreatorService)
+    public function __construct(DepartmentCreater $departmentCreatorService)
     {
-        $this->customerCreatorService = $customerCreatorService;
+        $this->departmentCreatorService = $departmentCreatorService;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -32,37 +32,18 @@ final class AddCustomer
 
         
         $name = (string) ($data['name'] ?? null);
-        $email = (string) ($data['email'] ?? null);
-        $phone = (string) ($data['phone'] ?? null);
-        $departmentId = (string) ($data['departmentId'] ?? null);
 
         // Validation
         if ($name == null) {
             $status = 400;
             $result = [
                 'success' => false,
-                'message' => 'Customer name is required.'
-            ];
-            return $this->sendResponse($response, $result, $status);
-        }
-        if ($email == null) {
-            $status = 400;
-            $result = [
-                'success' => false,
-                'message' => 'Customer email is required.'
-            ];
-            return $this->sendResponse($response, $result, $status);
-        }
-        if ($phone == null) {
-            $status = 400;
-            $result = [
-                'success' => false,
-                'message' => 'Customer phone is required.'
+                'message' => 'Department name is required.'
             ];
             return $this->sendResponse($response, $result, $status);
         }
 
-        $data = $this->customerCreatorService->createCustomer($name, $email, $phone, $departmentId);
+        $data = $this->departmentCreatorService->createDepartment($name);
         if ($data->success) {
             // Create success
             $status = $data->status;

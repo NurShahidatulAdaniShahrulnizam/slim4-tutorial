@@ -4,7 +4,7 @@ namespace App\Domain\Repository;
 
 use Doctrine\DBAL\Connection;
 
-class CustomerRepository
+class DepartmentRepository
 {
     /**
      * @var Connection The database connection
@@ -21,90 +21,67 @@ class CustomerRepository
         $this->connection = $connection;
     }
 
-    public function createCustomer(
-        string $name,
-        string $email,
-        string $phone,
-        int $departmentId
+    public function createDepartment(
+        string $name
     ) {
         $query = $this->connection->createQueryBuilder();
 
         $query
-            ->insert('customers')
+            ->insert('departments')
             ->values(
                 array(
-                    'name' => '?',
-                    'email' => '?',
-                    'phone' => '?',
-                    'departmentId' => '?'
+                    'name' => '?'
                 )
             )
-            ->setParameter(0, $name)
-            ->setParameter(1, $email)
-            ->setParameter(2, $phone)
-            ->setParameter(3, $departmentId);
+            ->setParameter(0, $name);
 
         $rows = $query->executeStatement();
 
         return $this->connection->lastInsertId();
     }
 
-    public function getAllCustomers()
+    public function getAllDepartments()
     {
         $query = $this->connection->createQueryBuilder();
 
         $rows = $query
             ->select(
-                'c.id',
-                'c.name',
-                'c.email',
-                'c.phone',
-                'd.id as departmentId'
+                'd.id',
+                'd.name'
             )
-            ->from('customers', 'c')
-            ->join('c', 'departments', 'd', 'c.departmentId = d.id');
+            ->from('departments', 'd');
 
         return $rows->fetchAllAssociative();
     }
 
-    public function getCustomerById(int $id)
+    public function getDepartmentById(int $id)
     {
         $query = $this->connection->createQueryBuilder();
 
         $rows = $query
             ->select(
-                'c.id',
-                'c.name',
-                'c.email',
-                'c.phone',
-                'd.id as departmentId'
+                'd.id',
+                'd.name'
             )
-            ->from('customers', 'c')
-            ->join('c', 'departments', 'd', 'c.departmentId = d.id')
-            ->where('c.id = :id')
+            ->from('departments', 'd')
+            ->where('d.id = :id')
             ->setParameter('id', $id);
 
         return $rows->fetchAssociative();
     }
 
-    public function updateCustomer(
+    public function updateDepartment(
         int $id,
-        string $name,
-        string $email,
-        string $phone,
-        string $departmentId
+        string $name
     ) {
         $query = $this->connection->createQueryBuilder();
 
         $query
-            ->update('customers')
+            ->update('departments')
             ->where('id = :id')
             ->setParameter('id', $id);
 
         $query->set('name', ':name')->setParameter('name', $name);
-        $query->set('email', ':email')->setParameter('email', $email);
-        $query->set('phone', ':phone')->setParameter('phone', $phone);
-        $query->set('departmentId', ':departmentId')->setParameter('departmentId', $departmentId);
 
         // $date = date("Y-m-d H:i:s");
         // $query->set('DateUpdated', ':date')->setParameter('date', $date);
@@ -114,13 +91,13 @@ class CustomerRepository
         return $rows > 0;
     }
 
-    public function deleteCustomer(
+    public function deleteDepartment(
         int $id
     ) {
         $query = $this->connection->createQueryBuilder();
 
         $query
-            ->delete('customers')
+            ->delete('departments')
             ->where('id = :id')
             ->setParameter('id', $id);
 

@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Action\Customer;
+namespace App\Action\Department;
 
-use App\Domain\Service\Customer\CustomerUpdater;
+use App\Domain\Service\Department\DepartmentUpdater;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteContext;
 
-final class UpdateCustomer
+final class UpdateDepartment
 
 {
     /**
-     * @var CustomerUpdater
+     * @var DepartmentUpdater
      */
-    private $customerUpdaterService;
+    private $departmentUpdaterService;
 
     /**
      * The constructor.
      *
-     * @param CustomerUpdater $customerUpdaterService The customer updater service
+     * @param DepartmentUpdater $departmentUpdaterService The department updater service
      */
-    public function __construct(CustomerUpdater $customerUpdaterService)
+    public function __construct(DepartmentUpdater $departmentUpdaterService)
     {
-        $this->customerUpdaterService = $customerUpdaterService;
+        $this->departmentUpdaterService = $departmentUpdaterService;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -34,38 +34,19 @@ final class UpdateCustomer
         // Collect input from the HTTP request
         $data = (array) $request->getParsedBody();
         $name = (string) ($data['name'] ?? null);
-        $email = (string) ($data['email'] ?? null);
-        $phone = (string) ($data['phone'] ?? null);
-        $departmentId = (string) ($data['departmentId'] ?? null);
 
         // Validation
         if ($name == null) {
             $status = 400;
             $result = [
                 'success' => false,
-                'message' => 'Customer name is required.'
-            ];
-            return $this->sendResponse($response, $result, $status);
-        }
-        if ($email == null) {
-            $status = 400;
-            $result = [
-                'success' => false,
-                'message' => 'Customer email is required.'
-            ];
-            return $this->sendResponse($response, $result, $status);
-        }
-        if ($phone == null) {
-            $status = 400;
-            $result = [
-                'success' => false,
-                'message' => 'Customer phone is required.'
+                'message' => 'Department name is required.'
             ];
             return $this->sendResponse($response, $result, $status);
         }
 
-        // Update customer
-        $data = $this->customerUpdaterService->updateCustomer($id, $name, $email, $phone, $departmentId);
+        // Update department
+        $data = $this->departmentUpdaterService->updateDepartment($id, $name);
         if ($data->success) {
             // Update success
             $status = $data->status;

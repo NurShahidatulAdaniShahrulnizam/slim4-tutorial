@@ -30,4 +30,25 @@ return function (App $app) {
             );
         }
     );
+
+    $app->group(
+        '/department-data',
+        function (RouteCollectorProxy $group) {
+
+            $group->post('/', \App\Action\Department\AddDepartment::class);
+            $group->get('/', \App\Action\Department\ListDepartment::class);
+            $group->options('/', function (ServerRequestInterface $request, ResponseInterface $response) {
+                return $response;
+            }
+            );
+
+            $group->get('/{id}', \App\Action\Department\ViewDepartment::class);
+            $group->put('/{id}', \App\Action\Department\UpdateDepartment::class);
+            $group->delete('/{id}', \App\Action\Department\DeleteDepartment::class);
+            $group->options('/{id}', function (ServerRequestInterface $request, ResponseInterface $response) {
+                return $response;
+            }
+            );
+        }
+    );
 };

@@ -1,45 +1,40 @@
 <?php
 
-namespace App\Domain\Service\Customer;
-
-
-use App\Domain\Repository\CustomerRepository;
+namespace App\Domain\Service\Department;
+use App\Domain\Repository\DepartmentRepository;
 
 /**
  * Service.
  */
-final class CustomerCreater
+final class DepartmentCreater
 {
     /**
-     * @var CustomerRepository
+     * @var DepartmentRepository
      */
-    private $customerRepo;
+    private $departmentRepo;
 
     /**
      * The constructor.
      *
-     * @param CustomerRepository $customerRepo The customer repository
+     * @param DepartmentRepository $departmentRepo The department repository
      */
-    public function __construct(CustomerRepository $customerRepo)
+    public function __construct(DepartmentRepository $departmentRepo)
     {
-        $this->customerRepo = $customerRepo;
+        $this->departmentRepo = $departmentRepo;
     }
 
-    public function createCustomer(
-        string $name,
-        string $email,
-        string $phone,
-        string $departmentId
+    public function createDepartment(
+        string $name
     ) {
         try {
-            $id = $this->customerRepo->createCustomer($name, $email, $phone, $departmentId);
+            $id = $this->departmentRepo->createDepartment($name);
             
             if ($id > 0) {
 
                 $response = (object) [
                     'status' => 200,
                     'success' => true,
-                    'message' => 'The customer was saved successfully.'
+                    'message' => 'The department was saved successfully.'
                 ];
             }
             else {

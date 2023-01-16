@@ -1,48 +1,45 @@
 <?php
 
-namespace App\Domain\Service\Customer;
+namespace App\Domain\Service\Department;
 
-use App\Domain\Repository\CustomerRepository;
+use App\Domain\Repository\DepartmentRepository;
 
 /**
  * Service.
  */
-final class CustomerUpdater
+final class DepartmentUpdater
 {
     /**
-     * @var CustomerRepository
+     * @var DepartmentRepository
      */
-    private $customerRepo;
+    private $departmentRepo;
 
     /**
      * The constructor.
      *
-     * @param CustomerRepository $customerRepo The customer repository
+     * @param DepartmentRepository $departmentRepo The department repository
      */
-    public function __construct(CustomerRepository $customerRepo)
+    public function __construct(DepartmentRepository $departmentRepo)
     {
-        $this->customerRepo = $customerRepo;
+        $this->departmentRepo = $departmentRepo;
     }
 
-    public function updateCustomer(
+    public function updateDepartment(
         int $id,
-        string $name,
-        string $email,
-        string $phone,
-        string $departmentId
+        string $name
     ) {
         try {
-            if ($this->customerRepo->updateCustomer($id, $name, $email, $phone, $departmentId)) {
+            if ($this->departmentRepo->updateDepartment($id, $name)) {
                 $response = (object) [
                     'status' => 200,
                     'success' => true,
-                    'message' => 'The customer was updated successfully.'
+                    'message' => 'The department was updated successfully.'
                 ];
             } else {
                 $response = (object) [
                     'status' => 200,
                     'success' => false,
-                    'message' => 'Failed to update the customer.'
+                    'message' => 'Failed to update the department.'
                 ];
             }
 
